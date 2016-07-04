@@ -103,7 +103,7 @@ public class AppiumTest implements SauceOnDemandSessionIdProvider {
         } else {
             String appPath = Paths.get(userDir, localApp).toAbsolutePath().toString();
             capabilities.setCapability("app", appPath);
-            serverAddress = new URL(String.format("http://127.0.0.1:%s/wd/hub", System.getenv().getOrDefault("PORT", "4723")));
+            serverAddress = new URL(String.format("http://127.0.0.1:%s/wd/hub", System.getenv("PORT")==null ? "4723": System.getenv("PORT")));
             driver = new AndroidDriver(serverAddress, capabilities);
         }
 
