@@ -33,22 +33,31 @@ public class AppiumTest implements SauceOnDemandSessionIdProvider {
         LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
     }
 
-    /** Page object references. Allows using 'home' instead of 'HomePage' **/
+    /**
+     * Page object references. Allows using 'home' instead of 'HomePage'
+     **/
     protected HomePage home;
 
-    /** wait wraps Helpers.wait **/
+    /**
+     * wait wraps Helpers.wait
+     **/
     public static WebElement wait(By locator) {
         return Helpers.wait(locator);
     }
 
     private boolean runOnSauce = System.getProperty("sauce") != null;
 
-    /** Authenticate to Sauce with environment variables SAUCE_USER_NAME and SAUCE_API_KEY **/
+    /**
+     * Authenticate to Sauce with environment variables SAUCE_USER_NAME and SAUCE_API_KEY
+     **/
     private SauceOnDemandAuthentication auth = new SauceOnDemandAuthentication();
 
-    /** Report pass/fail to Sauce Labs **/
+    /**
+     * Report pass/fail to Sauce Labs
+     **/
     // false to silence Sauce connect messages.
-    public @Rule
+    public
+    @Rule
     SauceOnDemandTestWatcher reportToSauce = new SauceOnDemandTestWatcher(this, auth, false);
 
     @Rule
@@ -70,10 +79,14 @@ public class AppiumTest implements SauceOnDemandSessionIdProvider {
 
     private String sessionId;
 
-    /** Keep the same date prefix to identify job sets. **/
+    /**
+     * Keep the same date prefix to identify job sets.
+     **/
     private static Date date = new Date();
 
-    /** Run before each test **/
+    /**
+     * Run before each test
+     **/
     @Before
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -103,7 +116,7 @@ public class AppiumTest implements SauceOnDemandSessionIdProvider {
         } else {
             String appPath = Paths.get(userDir, localApp).toAbsolutePath().toString();
             capabilities.setCapability("app", appPath);
-            serverAddress = new URL(String.format("http://127.0.0.1:%s/wd/hub", System.getenv("PORT")==null ? "4723": System.getenv("PORT")));
+            serverAddress = new URL(String.format("http://127.0.0.1:%s/wd/hub", System.getenv("PORT") == null ? "4723" : System.getenv("PORT")));
             driver = new AndroidDriver(serverAddress, capabilities);
         }
 
@@ -113,13 +126,17 @@ public class AppiumTest implements SauceOnDemandSessionIdProvider {
         Helpers.init(driver, serverAddress);
     }
 
-    /** Run after each test **/
+    /**
+     * Run after each test
+     **/
     @After
     public void tearDown() throws Exception {
         if (driver != null) driver.quit();
     }
 
-    /** If we're not on Sauce then return null otherwise SauceOnDemandTestWatcher will error. **/
+    /**
+     * If we're not on Sauce then return null otherwise SauceOnDemandTestWatcher will error.
+     **/
     public String getSessionId() {
         return runOnSauce ? sessionId : null;
     }
