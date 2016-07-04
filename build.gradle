@@ -6,11 +6,6 @@ version = '0.0.1-SNAPSHOT'
 
 description = """appium_tutorial_android"""
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-
-
 repositories {
         
      maven { url "https://repository-saucelabs.forge.cloudbees.com/release" }
