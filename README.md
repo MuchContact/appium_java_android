@@ -18,3 +18,5 @@ To run a single test, run:
     mvn -Dtest=appium.tutorial.android.AutomatingASimpleActionTest test
 
 Reference
+1.
+2.
